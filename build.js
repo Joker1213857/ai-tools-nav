@@ -6,15 +6,20 @@ const fs = require('fs');
 const path = require('path');
 const { SITE_CONFIG, categories, tools } = require('./data/tools');
 
-const DIST = path.join(__dirname, 'dist');
+const DIST = __dirname; // 直接输出到根目录，Vercel可以直接服务
 
-// 清理dist目录
-if (fs.existsSync(DIST)) {
-  fs.rmSync(DIST, { recursive: true });
-}
-fs.mkdirSync(DIST, { recursive: true });
-fs.mkdirSync(path.join(DIST, 'tool'), { recursive: true });
-fs.mkdirSync(path.join(DIST, 'category'), { recursive: true });
+// 清理旧的生成文件（只删除HTML和XML文件，不删除源代码）
+const filesToClean = ['index.html', 'sitemap.xml', 'robots.txt', 'ads.txt'];
+filesToClean.forEach(f => {
+  const fp = path.join(__dirname, f);
+  if (fs.existsSync(fp)) fs.unlinkSync(fp);
+});
+['tool', 'category'].forEach(dir => {
+  const dp = path.join(__dirname, dir);
+  if (fs.existsSync(dp)) fs.rmSync(dp, { recursive: true });
+});
+fs.mkdirSync(path.join(__dirname, 'tool'), { recursive: true });
+fs.mkdirSync(path.join(__dirname, 'category'), { recursive: true });
 
 // ========== 公共组件 ==========
 
@@ -726,14 +731,6 @@ Sitemap: ${SITE_CONFIG.domain}/sitemap.xml`;
   console.log('✅ robots.txt 生成完成');
 }
 
-// 7. 复制静态文件到根目录（Vercel需要）
-function copyStaticFiles() {
-  fs.copyFileSync(path.join(DIST, 'sitemap.xml'), path.join(__dirname, 'sitemap.xml'));
-  fs.copyFileSync(path.join(DIST, 'robots.txt'), path.join(__dirname, 'robots.txt'));
-  fs.copyFileSync(path.join(DIST, 'ads.txt'), path.join(__dirname, 'ads.txt'));
-  console.log('✅ 静态文件已复制到根目录');
-}
-
 // ========== 执行构建 ==========
 console.log('\n🚀 开始构建站点...\n');
 generateIndex();
@@ -742,7 +739,6 @@ generateToolPages();
 generateSitemap();
 generateAdsTxt();
 generateRobots();
-copyStaticFiles();
 console.log(`\n✨ 构建完成！共生成 ${tools.length + categories.length + 4} 个文件`);
 console.log(`   - 1 个首页`);
 console.log(`   - ${categories.length + 1} 个分类页`);

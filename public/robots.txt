@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://ai-tools-nav-pi.vercel.app/sitemap.xml
