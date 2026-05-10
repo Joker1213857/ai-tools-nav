@@ -2,6 +2,7 @@
   "name": "ai-tools-nav",
   "version": "1.0.0",
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "vercel-build": "node build.js"
   }
 }
