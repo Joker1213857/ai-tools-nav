@@ -726,6 +726,14 @@ Sitemap: ${SITE_CONFIG.domain}/sitemap.xml`;
   console.log('✅ robots.txt 生成完成');
 }
 
+// 7. 复制静态文件到根目录（Vercel需要）
+function copyStaticFiles() {
+  fs.copyFileSync(path.join(DIST, 'sitemap.xml'), path.join(__dirname, 'sitemap.xml'));
+  fs.copyFileSync(path.join(DIST, 'robots.txt'), path.join(__dirname, 'robots.txt'));
+  fs.copyFileSync(path.join(DIST, 'ads.txt'), path.join(__dirname, 'ads.txt'));
+  console.log('✅ 静态文件已复制到根目录');
+}
+
 // ========== 执行构建 ==========
 console.log('\n🚀 开始构建站点...\n');
 generateIndex();
@@ -734,6 +742,7 @@ generateToolPages();
 generateSitemap();
 generateAdsTxt();
 generateRobots();
+copyStaticFiles();
 console.log(`\n✨ 构建完成！共生成 ${tools.length + categories.length + 4} 个文件`);
 console.log(`   - 1 个首页`);
 console.log(`   - ${categories.length + 1} 个分类页`);
