@@ -708,7 +708,16 @@ ${urls.join('\n')}
   console.log('✅ sitemap.xml 生成完成');
 }
 
-// 5. robots.txt
+// 5. ads.txt
+function generateAdsTxt() {
+  // 从 adsenseId 中提取 publisher ID
+  const pubId = SITE_CONFIG.adsenseId.replace('ca-pub-', '');
+  const adsTxt = `google.com, pub-${pubId}, DIRECT, f08c47fec0942fa0`;
+  fs.writeFileSync(path.join(DIST, 'ads.txt'), adsTxt);
+  console.log('✅ ads.txt 生成完成');
+}
+
+// 6. robots.txt
 function generateRobots() {
   const robots = `User-agent: *
 Allow: /
@@ -723,10 +732,12 @@ generateIndex();
 generateCategoryPages();
 generateToolPages();
 generateSitemap();
+generateAdsTxt();
 generateRobots();
-console.log(`\n✨ 构建完成！共生成 ${tools.length + categories.length + 3} 个文件`);
+console.log(`\n✨ 构建完成！共生成 ${tools.length + categories.length + 4} 个文件`);
 console.log(`   - 1 个首页`);
 console.log(`   - ${categories.length + 1} 个分类页`);
 console.log(`   - ${tools.length} 个工具详情页`);
 console.log(`   - 1 个 sitemap.xml`);
+console.log(`   - 1 个 ads.txt`);
 console.log(`   - 1 个 robots.txt`);
