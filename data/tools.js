@@ -4,14 +4,14 @@
  */
 const SITE_CONFIG = {
   name: "AI工具导航",
-  domain: "https://ai-tools-nav.vercel.app", // 部署后替换为你的域名
+  domain: "https://ai-tools-nav-pi.vercel.app",
   description: "发现并探索最优质的AI工具，提升你的工作效率。收录ChatGPT、Midjourney、Claude等热门AI工具。",
   keywords: "AI工具,AI导航,ChatGPT,Midjourney,Claude,AI绘画,AI写作,AI视频,AI编程",
   author: "Joker",
   // Google Analytics ID（替换为你的）
-  gaId: "G-XXXXXXXXXX",
+  gaId: "G-JKGFQL4H8V",
   // Google AdSense ID（替换为你的）
-  adsenseId: "ca-pub-XXXXXXXXXX",
+  adsenseId: "ca-pub-2073847250614232",
 };
 
 const categories = [
