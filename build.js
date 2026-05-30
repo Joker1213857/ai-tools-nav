@@ -112,10 +112,11 @@ function footerHTML() {
       <div class="footer-col">
         <h4>关于</h4>
         <div class="footer-links">
-          <a href="#">关于我们</a>
-          <a href="#">提交工具</a>
-          <a href="#">广告合作</a>
-          <a href="#">联系方式</a>
+          <a href="/about.html">关于我们</a>
+          <a href="/submit.html">提交工具</a>
+          <a href="/contact.html">广告合作</a>
+          <a href="/contact.html">联系方式</a>
+          <a href="/privacy.html">隐私政策</a>
         </div>
       </div>
       <div class="footer-col">
@@ -476,6 +477,18 @@ a { text-decoration: none; color: inherit; }
 }
 .footer-bottom p { color: var(--text-sec); font-size: 0.85rem; }
 
+/* Legal Pages */
+.legal-page { max-width: 800px; margin: 0 auto; }
+.legal-page h1 { font-size: 2rem; margin-bottom: 10px; }
+.legal-page h2 { font-size: 1.3rem; margin: 30px 0 15px; font-weight: 600; }
+.legal-page p { color: var(--text-sec); line-height: 1.8; margin-bottom: 15px; }
+.legal-page ul { color: var(--text-sec); line-height: 2; margin-bottom: 15px; padding-left: 20px; }
+.legal-page a { color: var(--primary); }
+.submit-form { background: var(--bg); border-radius: 12px; padding: 25px; margin: 20px 0; }
+.form-item { margin-bottom: 20px; }
+.form-item label { font-weight: 600; display: block; margin-bottom: 5px; }
+.form-item p { color: var(--text-sec); font-size: 0.9rem; margin: 0; }
+
 /* No Results */
 .no-results { text-align: center; padding: 60px 20px; color: var(--text-sec); }
 .no-results h3 { font-size: 1.2rem; margin-bottom: 8px; }
@@ -705,6 +718,11 @@ function generateSitemap() {
     urls.push(`  <url><loc>${SITE_CONFIG.domain}/tool/${tool.id}.html</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>`);
   });
 
+  // 功能页
+  ['privacy', 'about', 'contact', 'submit'].forEach(page => {
+    urls.push(`  <url><loc>${SITE_CONFIG.domain}/${page}.html</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>`);
+  });
+
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.join('\n')}
@@ -731,18 +749,255 @@ Sitemap: ${SITE_CONFIG.domain}/sitemap.xml`;
   console.log('✅ robots.txt 生成完成');
 }
 
+// 7. 隐私政策页
+function generatePrivacyPage() {
+  const html = `${headHTML(
+    `隐私政策 - ${SITE_CONFIG.name}`,
+    `${SITE_CONFIG.name}的隐私政策，了解我们如何收集、使用和保护您的个人信息。`,
+    `隐私政策,隐私保护,${SITE_CONFIG.name}`,
+    `${SITE_CONFIG.domain}/privacy.html`
+  )}
+<body>
+  ${headerHTML()}
+  ${navHTML('')}
+  <main class="main-content">
+    <div class="legal-page">
+      <h1>隐私政策</h1>
+      <p>最后更新日期：2024年5月</p>
+      
+      <h2>1. 信息收集</h2>
+      <p>我们使用 Google Analytics 收集网站访问数据，包括：</p>
+      <ul>
+        <li>访问的页面和浏览时长</li>
+        <li>设备类型和浏览器信息</li>
+        <li>地理位置（大致区域）</li>
+        <li>流量来源</li>
+      </ul>
+      <p>我们使用 Google AdSense 展示广告，Google 可能会使用 Cookie 来根据用户之前的访问记录展示相关广告。</p>
+
+      <h2>2. Cookie 使用</h2>
+      <p>本网站使用以下类型的 Cookie：</p>
+      <ul>
+        <li><strong>分析 Cookie</strong>：用于了解访客如何与网站互动（Google Analytics）</li>
+        <li><strong>广告 Cookie</strong>：用于展示个性化广告（Google AdSense）</li>
+      </ul>
+      <p>您可以通过浏览器设置管理或禁用 Cookie。</p>
+
+      <h2>3. 第三方服务</h2>
+      <p>本网站使用以下第三方服务：</p>
+      <ul>
+        <li><strong>Google Analytics</strong>：网站流量分析</li>
+        <li><strong>Google AdSense</strong>：广告展示和变现</li>
+        <li><strong>Vercel</strong>：网站托管服务</li>
+      </ul>
+      <p>这些服务可能会收集上述信息。请参阅各服务的隐私政策了解详情。</p>
+
+      <h2>4. 数据安全</h2>
+      <p>我们采取合理的技术措施保护用户数据安全。本网站不直接收集个人身份信息（如姓名、邮箱、电话号码）。</p>
+
+      <h2>5. 外部链接</h2>
+      <p>本网站包含指向第三方 AI 工具的链接。我们不对这些外部网站的内容和隐私做法负责。建议您在访问这些网站时查看各自的隐私政策。</p>
+
+      <h2>6. 儿童隐私</h2>
+      <p>本网站的服务不针对13岁以下的儿童。我们不会有意收集13岁以下儿童的个人信息。</p>
+
+      <h2>7. 政策更新</h2>
+      <p>我们可能会不时更新本隐私政策。更新后的政策将在此页面上发布，并更新"最后更新日期"。</p>
+
+      <h2>8. 联系我们</h2>
+      <p>如果您对本隐私政策有任何疑问，请通过以下方式联系我们：</p>
+      <ul>
+        <li>邮箱：2939604175@qq.com</li>
+        <li><a href="/contact.html">联系方式页面</a></li>
+      </ul>
+    </div>
+  </main>
+  ${footerHTML()}
+</body>
+</html>`;
+  fs.writeFileSync(path.join(DIST, 'privacy.html'), html);
+  console.log('✅ 隐私政策页生成完成');
+}
+
+// 8. 关于我们页
+function generateAboutPage() {
+  const html = `${headHTML(
+    `关于我们 - ${SITE_CONFIG.name}`,
+    `了解${SITE_CONFIG.name}的使命和团队，我们致力于帮助用户发现最优质的AI工具。`,
+    `关于我们,${SITE_CONFIG.name},AI工具导航`,
+    `${SITE_CONFIG.domain}/about.html`
+  )}
+<body>
+  ${headerHTML()}
+  ${navHTML('')}
+  <main class="main-content">
+    <div class="legal-page">
+      <h1>关于我们</h1>
+      
+      <h2>🚀 我们的使命</h2>
+      <p>${SITE_CONFIG.name} 致力于帮助每个人发现和使用最优质的 AI 工具。随着人工智能技术的快速发展，越来越多的 AI 工具涌现，我们希望帮助用户快速找到最适合自己需求的工具，提升工作和生活效率。</p>
+
+      <h2>📋 我们做什么</h2>
+      <ul>
+        <li><strong>精选收录</strong>：我们精心筛选和测试每一个收录的 AI 工具，确保推荐的都是高质量的产品</li>
+        <li><strong>分类整理</strong>：按用途将工具分为写作、绘画、视频、音频、编程、聊天、效率等类别，方便查找</li>
+        <li><strong>持续更新</strong>：AI 领域日新月异，我们持续关注并收录最新的 AI 工具</li>
+        <li><strong>客观评测</strong>：提供每个工具的功能介绍、定价方案和使用建议</li>
+      </ul>
+
+      <h2>📊 网站数据</h2>
+      <ul>
+        <li>收录工具：<strong>${tools.length}+</strong> 个</li>
+        <li>工具分类：<strong>${categories.length}</strong> 个</li>
+        <li>更新频率：每周更新</li>
+      </ul>
+
+      <h2>🤝 合作联系</h2>
+      <p>如果您是 AI 工具开发者，希望将您的产品收录到我们的导航站，或者有广告合作需求，欢迎联系我们：</p>
+      <ul>
+        <li>邮箱：2939604175@qq.com</li>
+        <li><a href="/contact.html">联系方式页面</a></li>
+        <li><a href="/submit.html">提交工具页面</a></li>
+      </ul>
+    </div>
+  </main>
+  ${footerHTML()}
+</body>
+</html>`;
+  fs.writeFileSync(path.join(DIST, 'about.html'), html);
+  console.log('✅ 关于我们页生成完成');
+}
+
+// 9. 联系我们页
+function generateContactPage() {
+  const html = `${headHTML(
+    `联系我们 - ${SITE_CONFIG.name}`,
+    `通过邮件或表单联系${SITE_CONFIG.name}团队，我们会在24小时内回复。`,
+    `联系我们,${SITE_CONFIG.name},合作咨询`,
+    `${SITE_CONFIG.domain}/contact.html`
+  )}
+<body>
+  ${headerHTML()}
+  ${navHTML('')}
+  <main class="main-content">
+    <div class="legal-page">
+      <h1>联系我们</h1>
+      <p>我们很乐意听到您的声音！无论是工具推荐、合作咨询还是问题反馈，都欢迎联系我们。</p>
+
+      <h2>📧 邮箱联系</h2>
+      <p>如果您有任何问题或建议，请发送邮件至：</p>
+      <p style="font-size:1.2rem;font-weight:600;color:var(--primary);">2939604175@qq.com</p>
+      <p>我们会在 24 小时内回复您的邮件。</p>
+
+      <h2>🤝 合作咨询</h2>
+      <p>我们接受以下类型的合作：</p>
+      <ul>
+        <li><strong>工具收录</strong>：提交您的 AI 工具，免费收录到导航站</li>
+        <li><strong>广告投放</strong>：在我们的网站投放品牌广告</li>
+        <li><strong>内容合作</strong>：联合发布 AI 工具评测或教程</li>
+        <li><strong>友情链接</strong>：与相关网站交换链接</li>
+      </ul>
+
+      <h2>💬 常见问题</h2>
+      <p><strong>Q：如何提交我的 AI 工具？</strong></p>
+      <p>请访问我们的 <a href="/submit.html">提交工具页面</a>，填写工具信息即可。</p>
+      
+      <p><strong>Q：收录是免费的吗？</strong></p>
+      <p>是的，基础收录完全免费。我们也提供优先展示等增值服务。</p>
+      
+      <p><strong>Q：如何修改已收录的工具信息？</strong></p>
+      <p>请通过邮件联系我们，说明需要修改的内容。</p>
+    </div>
+  </main>
+  ${footerHTML()}
+</body>
+</html>`;
+  fs.writeFileSync(path.join(DIST, 'contact.html'), html);
+  console.log('✅ 联系我们页生成完成');
+}
+
+// 10. 提交工具页
+function generateSubmitPage() {
+  const html = `${headHTML(
+    `提交AI工具 - ${SITE_CONFIG.name}`,
+    `向${SITE_CONFIG.name}提交您的AI工具，让更多用户发现您的产品。`,
+    `提交工具,提交AI工具,${SITE_CONFIG.name}`,
+    `${SITE_CONFIG.domain}/submit.html`
+  )}
+<body>
+  ${headerHTML()}
+  ${navHTML('')}
+  <main class="main-content">
+    <div class="legal-page">
+      <h1>提交 AI 工具</h1>
+      <p>如果您开发了一款 AI 工具，或者发现了一款好用的 AI 工具没有被收录，欢迎提交给我们！</p>
+
+      <h2>📝 提交方式</h2>
+      <p>请发送邮件至 <strong>2939604175@qq.com</strong>，包含以下信息：</p>
+
+      <div class="submit-form">
+        <div class="form-item">
+          <label>工具名称 *</label>
+          <p>您的 AI 工具名称</p>
+        </div>
+        <div class="form-item">
+          <label>工具网址 *</label>
+          <p>工具的官方网站链接</p>
+        </div>
+        <div class="form-item">
+          <label>工具简介 *</label>
+          <p>简要描述工具的功能和特点（50-200字）</p>
+        </div>
+        <div class="form-item">
+          <label>工具分类 *</label>
+          <p>选择最匹配的分类：写作、图像、视频、音频、编程、聊天、效率</p>
+        </div>
+        <div class="form-item">
+          <label>定价方案</label>
+          <p>免费 / 免费试用 / 付费 / Freemium</p>
+        </div>
+        <div class="form-item">
+          <label>核心亮点</label>
+          <p>列出 3-5 个核心功能亮点</p>
+        </div>
+      </div>
+
+      <h2>✅ 收录标准</h2>
+      <ul>
+        <li>工具必须与人工智能相关</li>
+        <li>工具网站可以正常访问</li>
+        <li>工具描述真实准确</li>
+        <li>不收录涉及违法违规内容的工具</li>
+      </ul>
+
+      <h2>⏱ 处理时间</h2>
+      <p>我们会在 <strong>3 个工作日内</strong> 审核您的提交。审核通过后，工具将自动出现在导航站中。</p>
+    </div>
+  </main>
+  ${footerHTML()}
+</body>
+</html>`;
+  fs.writeFileSync(path.join(DIST, 'submit.html'), html);
+  console.log('✅ 提交工具页生成完成');
+}
+
 // ========== 执行构建 ==========
-console.log('\n🚀 开始构建站点...\n');
+console.log('\\n🚀 开始构建站点...\\n');
 generateIndex();
 generateCategoryPages();
 generateToolPages();
+generatePrivacyPage();
+generateAboutPage();
+generateContactPage();
+generateSubmitPage();
 generateSitemap();
 generateAdsTxt();
 generateRobots();
-console.log(`\n✨ 构建完成！共生成 ${tools.length + categories.length + 4} 个文件`);
+console.log(`\\n✨ 构建完成！共生成 ${tools.length + categories.length + 8} 个文件`);
 console.log(`   - 1 个首页`);
 console.log(`   - ${categories.length + 1} 个分类页`);
 console.log(`   - ${tools.length} 个工具详情页`);
+console.log(`   - 4 个功能页（隐私/关于/联系/提交）`);
 console.log(`   - 1 个 sitemap.xml`);
 console.log(`   - 1 个 ads.txt`);
 console.log(`   - 1 个 robots.txt`);
